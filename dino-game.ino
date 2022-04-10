@@ -6,7 +6,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 char rowOne[16]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 char rowTwo[16]{' ', ' ', ' ', 'P', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
-int switchPin = 2;
+int switchPin = 7;
 bool isJump = false;
 int switchState = 0;
 
@@ -20,11 +20,17 @@ void loop() {
     switchState = digitalRead(switchPin);
 
     if (switchState == HIGH) {
-        lcd.print("Pressed");
+        rowOne[3] = 'P';
+        rowTwo[3] = ' ';
     } else if (switchState == LOW) {
-        lcd.print("Not Pressed");
-
+        rowOne[3] = ' ';
+        rowTwo[3] = 'P';
     }
+
+    lcd.setCursor(0, 0);
+    lcd.print(rowOne);
+    lcd.setCursor(0, 1);
+    lcd.print(rowTwo);
 
     delay(500);
     lcd.clear();
